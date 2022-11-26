@@ -1,7 +1,7 @@
 subroutine setplayer
     use value
     implicit none
-    integer :: ri,top
+    integer :: ri,top,i,j
     integer,allocatable :: temp(:)
     allocate(temp(ny))
     call timeshow
@@ -11,15 +11,24 @@ subroutine setplayer
     do i=1,ny
         temp(i)=numf(ri,i)
     enddo
-    write(*,'(20i1)') temp
-    write(*,'(20i1)') numf(ri,:)
-    top=minloc(temp-S_topland)
+    do i=ny,1,-1
+        if(temp(i).eq.S_land) then
+            top=i
+            exit
+        endif
+    enddo
     numf(ri,top+1)=S_player1
-    write(*,*) ri,top
     ri=mod(int(10*rand()),5)+1
     ri=nx-ri
-    temp=numf(ri,:)
-    top=minloc(abs(temp-S_topland),1)
+    do i=1,ny
+        temp(i)=numf(ri,i)
+    enddo
+    do i=ny,1,-1
+        if(temp(i).eq.S_land) then
+            top=i
+            exit
+        endif
+    enddo
     numf(ri,top+1)=S_player2
     if(allocated(temp)) deallocate(temp)
     end
