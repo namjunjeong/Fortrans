@@ -7,4 +7,4 @@ OBJS = value.o fort.o showfield.o makefield.o starting.o testmode.o game.o setpl
 fortrans: $(OBJS)
 	$(F) $(OPT) -o $@ $(OBJS)
 clean:
-	del /f *.o *.mod fortrans.exe
+	rm *.o *.mod fortrans.exe
