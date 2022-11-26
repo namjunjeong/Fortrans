@@ -1,3 +1,3 @@
 # Fortrans
 Artillery game made by fortran90<br>
-Type "make" in the folder where the file exists
+Type "make" in the folder where all files exists
