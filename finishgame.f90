@@ -1,25 +1,53 @@
-subroutine game
+subroutine finishgame(whowin)
     use value
+    use iso_c_binding
     implicit none
-    call makefield
-    call setplayer
-    call showfield
-    do while(.true.)
-        call move
-        call system('cls')
-        call showfield
-        call fire
-        if(hp1.LE.0) then
-            call finishgame(S_player2)
-        elseif(hp2.LE.0) then
-            call finishgame(S_player1)
-        endif
-        if(turn.eq.1) then
-            turn=2
-        elseif(turn.eq.2) then
-            turn=1
-        endif
-        write(*,'(a78)') "================================turn changed!!================================"
-        write(*,'(a38,i1,a39)') "================================player",turn,"'s turn================================="
-    enddo
+    interface
+        subroutine usleep(useconds) bind(C)
+            use iso_c_binding 
+            implicit none 
+            integer(c_int32_t), value :: useconds 
+        end
+    end interface
+    integer :: whowin,i
+    if(whowin.eq.S_player1) then
+        do i=1,10
+            call system("cls")
+            write(*,*) "********************"
+            write(*,*) "*congraturation!!!!*"
+            write(*,*) "********************"
+            write(*,*) "===================="
+            write(*,*) "=player 1 win!!!!!!="
+            write(*,*) "===================="
+            call usleep(100000_c_int32_t)
+            call system("cls")
+            write(*,*) "===================="
+            write(*,*) "=congraturation!!!!="
+            write(*,*) "===================="
+            write(*,*) "********************"
+            write(*,*) "*player 1 win!!!!!!*"
+            write(*,*) "********************"
+            call usleep(100000_c_int32_t)
+        enddo
+    elseif(whowin.eq.S_player2) then
+        do i=1,10
+            call system("cls")
+            write(*,*) "********************"
+            write(*,*) "*congraturation!!!!*"
+            write(*,*) "********************"
+            write(*,*) "===================="
+            write(*,*) "=player 2 win!!!!!!="
+            write(*,*) "===================="
+            call usleep(100000_c_int32_t)
+            call system("cls")
+            write(*,*) "===================="
+            write(*,*) "=congraturation!!!!="
+            write(*,*) "===================="
+            write(*,*) "********************"
+            write(*,*) "*player 2 win!!!!!!*"
+            write(*,*) "********************"
+            call usleep(100000_c_int32_t)	
+        enddo
+    endif
+    stop
     end
